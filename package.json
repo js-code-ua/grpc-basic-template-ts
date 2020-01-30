@@ -1,0 +1,52 @@
+{
+  "name": "koa-basic-template-ts",
+  "version": "1.0.0",
+  "description": "koa ts template",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "nodemon --watch 'src/**/*' -e ts,tsx --exec ts-node ./src/index.ts",
+    "prepublish": "npm run build",
+    "build": "rm -rf dist && mkdir -p dist && tsc",
+    "test": "mocha -r ts-node/register tests/**/*.test.ts",
+    "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test",
+    "version": "npm run format && git add -A lib",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/js-code-ua/koa-basic-template-ts.git"
+  },
+  "keywords": [
+    "koa",
+    "ts"
+  ],
+  "author": "Alex K",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/js-code-ua/koa-basic-template-ts/issues"
+  },
+  "homepage": "https://github.com/js-code-ua/koa-basic-template-ts#readme",
+  "dependencies": {
+    "@grpc/proto-loader": "^0.5.3",
+    "dotenv": "^8.2.0",
+    "google-protobuf": "^3.11.2",
+    "grpc": "^1.24.2",
+    "koa": "^2.11.0",
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/google-protobuf": "^3.7.2",
+    "@types/koa": "^2.11.0",
+    "@types/lodash": "^4.14.149",
+    "@types/node": "^13.5.2",
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
+  }
+}
