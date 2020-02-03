@@ -1,12 +1,5 @@
 import { config } from 'dotenv';
-import * as Koa from 'koa';
+import { startServer } from './server';
 
 config();
-
-const app = new Koa();
-
-app.use(async ctx => {
-  ctx.body = 'Hello World';
-});
-
-app.listen(process.env.PORT);
+startServer(process.env.PORT || 50051, console);

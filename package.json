@@ -1,12 +1,15 @@
 {
-  "name": "koa-basic-template-ts",
+  "name": "grpc-basic-template-ts",
   "version": "1.0.0",
-  "description": "koa ts template",
+  "description": "grpc ts template",
   "main": "index.js",
   "scripts": {
-    "start:dev": "nodemon --watch 'src/**/*' -e ts,tsx --exec ts-node ./src/index.ts",
+    "proto": "sudo chmod +x ./scripts/protoc.sh && ./scripts/protoc.sh",
+    "start:dev": "npm run proto && nodemon --watch 'src/**/*' -e ts,tsx --exec ts-node ./src/index.ts",
     "prepublish": "npm run build",
-    "build": "rm -rf dist && mkdir -p dist && tsc",
+    "build": "./scripts/protoc.sh && rm -rf dist && mkdir -p dist && tsc",
+    "postbuild": "cpy ./src/generated/* ./dist/generated",
+    "start": "npx tsc && node ./dist/index.js",
     "test": "mocha -r ts-node/register tests/**/*.test.ts",
     "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
@@ -18,32 +21,33 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/js-code-ua/koa-basic-template-ts.git"
+    "url": "git+https://github.com/js-code-ua/grpc-basic-template-ts.git"
   },
   "keywords": [
-    "koa",
+    "grpc",
     "ts"
   ],
   "author": "Alex K",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/js-code-ua/koa-basic-template-ts/issues"
+    "url": "https://github.com/js-code-ua/grpc-basic-template-ts/issues"
   },
-  "homepage": "https://github.com/js-code-ua/koa-basic-template-ts#readme",
+  "homepage": "https://github.com/js-code-ua/grpc-basic-template-ts#readme",
   "dependencies": {
     "@grpc/proto-loader": "^0.5.3",
     "dotenv": "^8.2.0",
     "google-protobuf": "^3.11.2",
     "grpc": "^1.24.2",
-    "koa": "^2.11.0",
     "lodash": "^4.17.15"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/google-protobuf": "^3.7.2",
-    "@types/koa": "^2.11.0",
     "@types/lodash": "^4.14.149",
     "@types/node": "^13.5.2",
+    "cpy-cli": "^3.0.0",
+    "grpc-tools": "^1.8.1",
+    "grpc_tools_node_protoc_ts": "^2.5.10",
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "ts-node": "^8.6.2",
