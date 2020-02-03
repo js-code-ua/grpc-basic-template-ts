@@ -1,2 +1,2 @@
-# koa-basic-template-ts
-Pure koa ts template
+# grpc-basic-template-ts
+Simple grpc server ts template
